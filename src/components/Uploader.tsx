@@ -80,7 +80,7 @@ function Uploader() {
   return (
     <>
     <Navbar/>
-    <div className="container mx-auto p-6 mt-16 max-w-5xl">
+    <div className="container mx-auto p-6 mt-24 max-w-5xl">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Verify Project Authenticity</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
