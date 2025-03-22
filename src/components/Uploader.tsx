@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from './Navbar';
 
 function Uploader() {
   const [file, setFile] = useState(null);
@@ -75,7 +76,9 @@ function Uploader() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-5xl">
+    <>
+    <Navbar/>
+    <div className="container mx-auto p-6 mt-16 max-w-5xl">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Verify Project Authenticity</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -192,6 +195,7 @@ function Uploader() {
         </div>
       )}
     </div>
+    </>
   );
 }
 
