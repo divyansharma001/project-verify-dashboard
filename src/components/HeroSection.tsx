@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Code, Shield, Search, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -40,6 +41,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
+            <Link to={'/uploader'}>
             <Button 
               size="lg" 
               className="rounded-full gap-2 px-6 py-6 text-base"
@@ -49,6 +51,7 @@ const HeroSection = () => {
               <span>Start Verifying Now</span>
               <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
             </Button>
+            </Link>
             <Button variant="outline" size="lg" className="rounded-full text-base py-6">
               Learn How It Works
             </Button>
