@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Navbar from './Navbar';
 
 function Uploader() {
@@ -44,32 +45,33 @@ function Uploader() {
         }
       }
 
-      // Corrected API endpoint
-      const response = await fetch('http://localhost:3000/api/resume/extracter', {
-        method: 'POST',
-        body: formData,
+      // Using axios instead of fetch
+      const response = await axios.post('http://localhost:5001/api/resume/extract', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        let errorMessage = 'Failed to process PDF';
-        
-        try {
-          const errorData = JSON.parse(errorText);
-          errorMessage = errorData.error || errorMessage;
-        } catch (e) {
-          // If response is not JSON, use text as error
-          if (errorText) errorMessage = errorText;
-        }
-        
-        throw new Error(errorMessage);
-      }
-
-      const data = await response.json();
-      setProjects(data);
+      setProjects(response.data);
     } catch (err) {
       console.error('Error uploading file:', err);
-      setError(err.message);
+      
+      // Handle error response from axios
+      let errorMessage = 'Failed to process PDF';
+      
+      if (err.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        errorMessage = err.response.data.error || err.response.data || errorMessage;
+      } else if (err.request) {
+        // The request was made but no response was received
+        errorMessage = 'No response from server. Please check your connection.';
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        errorMessage = err.message;
+      }
+      
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
